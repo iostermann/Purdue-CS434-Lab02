@@ -19,4 +19,11 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Scenes\cornell1.txt" />
+    <Text Include="Scenes\cornell2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scene.g4" />
+  </ItemGroup>
 </Project>

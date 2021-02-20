@@ -141,6 +141,13 @@
   <ItemGroup>
     <ClCompile Include="Ray Tracer.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Scenes\cornell1.txt" />
+    <Text Include="Scenes\cornell2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scene.g4" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
