@@ -2,11 +2,18 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtx/string_cast.hpp>
 
-// Include parser
+// Include parser and antlr4 runtime to use it
 #include "antlr4-runtime/antlr4-runtime.h"
 #include "antlr4-runtime/sceneLexer.h"
 #include "antlr4-runtime/sceneParser.h"
+
+#include"RTVisitor.h"
+
+
 
 using namespace std;
 using namespace antlr4;
@@ -21,6 +28,13 @@ int main(int argc, const char* argv[])
 	sceneLexer lexer(&input);
 	CommonTokenStream tokens(&lexer);
 	sceneParser parser(&tokens);
+
+	sceneParser::SceneContext* tree = parser.scene();
+
+	RTVisitor visitor;
+	scene scene = visitor.visitScene(tree);
+
+	scene.print();
 
 }
 

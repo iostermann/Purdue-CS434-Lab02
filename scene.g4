@@ -3,7 +3,7 @@ grammar scene;
 // antlr4 -Dlanguage=Cpp -no-listener -visitor -o antlr4-runtime scene.g4
 
 // Parser Rules
-scene: paramlist object* resolution EOF;
+scene: paramlist object+ resolution EOF;
 
 paramlist: param+;
 
