@@ -3,9 +3,25 @@
 
 #include <iostream>
 
-int main()
+// Include parser
+#include "antlr4-runtime/antlr4-runtime.h"
+#include "antlr4-runtime/sceneLexer.h"
+#include "antlr4-runtime/sceneParser.h"
+
+using namespace std;
+using namespace antlr4;
+
+int main(int argc, const char* argv[])
 {
-    std::cout << "Hello World!\n";
+	ifstream in;
+	//in.open("Scenes/" + string(argv[1]));
+	in.open("Scenes/cornell1.txt");
+
+	ANTLRInputStream input(in);
+	sceneLexer lexer(&input);
+	CommonTokenStream tokens(&lexer);
+	sceneParser parser(&tokens);
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
