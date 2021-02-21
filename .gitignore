@@ -341,3 +341,6 @@ healthchecksdb
 
 # ANTLR4 tmp file from vsCode workaround
 .antlr/
+
+# output images
+*.png

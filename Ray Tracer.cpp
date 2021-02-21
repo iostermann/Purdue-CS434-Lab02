@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
 
@@ -10,6 +12,9 @@
 #include "antlr4-runtime/antlr4-runtime.h"
 #include "antlr4-runtime/sceneLexer.h"
 #include "antlr4-runtime/sceneParser.h"
+
+// Library for encoding image as a png in the end
+#include "lodepng.h"
 
 #include"RTVisitor.h"
 
@@ -35,6 +40,26 @@ int main(int argc, const char* argv[])
 	scene scene = visitor.visitScene(tree);
 
 	scene.print();
+
+	
+
+	//Encode the image
+	string imageName = "test.png";
+	vector<unsigned char> image;
+
+	for (int height = 0; height < scene.resolutionH; height++) {
+		for (int width = 0; width < scene.resolutionW; width++) {
+			image.push_back(height % 255);
+			image.push_back(width % 255);
+			image.push_back((height + width) % 255);
+			image.push_back(255);
+		}
+	}
+
+	unsigned error = lodepng::encode(imageName.c_str(), image, scene.resolutionW, scene.resolutionH);
+
+	//if there's an error, display it
+	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;
 
 }
 

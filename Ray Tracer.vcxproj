@@ -117,7 +117,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -171,6 +171,7 @@
     <ClCompile Include="antlr4-runtime\sceneParser.cpp" />
     <ClCompile Include="antlr4-runtime\sceneVisitor.cpp" />
     <ClCompile Include="glm\detail\glm.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Ray Tracer.cpp" />
     <ClCompile Include="RTVisitor.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -762,6 +763,7 @@
     <ClInclude Include="glm\vec3.hpp" />
     <ClInclude Include="glm\vec4.hpp" />
     <ClInclude Include="glm\vector_relational.hpp" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="RTVisitor.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
