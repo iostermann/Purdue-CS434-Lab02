@@ -40,22 +40,10 @@ glm::vec3 v = glm::normalize(glm::cross(l, up));
 glm::vec3 u = glm::cross(u, v);
 float focalLength = 1 / tan(fovy / 2);
 
-// Maybe move this into Image??
-Ray CalculateRay(int i, int j, Image* image, glm::vec3 ll, float aspectRatio) {
-
-	glm::vec3 p = ll + ((2.0f * aspectRatio * v * (float)i) / (float)image->width) + (2.0f * u * (float)i);
-	glm::vec3 d = glm::normalize(p - eye);
-
-	Ray ray = Ray(eye, d);
-
-	return ray;
-}
 
 glm::vec3 TraceRay(Ray ray, int maxDepth) {
-	glm::vec3 returned = glm::vec3(
-		(int)(ray.direction.x * 255.0f) % 255,
-		(int)(ray.direction.y * 255.0f) % 255,
-		(int)(ray.direction.z * 255.0f) % 255);
+	cout << "Tracing Ray with direction: " << to_string(ray.direction) << endl;
+	glm::vec3 returned = 255.0f * ray.direction;
 
 	return returned;
 }
@@ -80,17 +68,13 @@ int main(int argc, const char* argv[])
 
 	Image image = Image(scene.resolutionW, scene.resolutionH);
 
-	// Needed for calculating rays
-	float aspectRatio = (float)image.width / image.height;
-	glm::vec3 ll = eye + (focalLength * l) - (aspectRatio * v) - u;
-
-	#pragma omp parallel for shared(image)
+	//#pragma omp parallel for 
 	for (int i = 0; i < scene.resolutionH; i++) {
 		for (int j = 0; j < scene.resolutionW; j++) {
-			Ray ray = CalculateRay(i, j, &image, ll, aspectRatio);
+			Ray ray = image.CalculateRay(i, j);
 			glm::vec3 color = TraceRay(ray, scene.maxDepth);
 			image.data[i][j].setColor(color);
-			//cout << "Tracing pixel: " << i << "," << j << endl;
+			//cout << "\nTracing pixel: " << i << "," << j;
 		}
 		cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
 
