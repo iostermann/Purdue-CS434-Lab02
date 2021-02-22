@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
@@ -16,12 +17,44 @@
 // Library for encoding image as a png in the end
 #include "lodepng.h"
 
-#include"RTVisitor.h"
+#include "omp.h"
+
+#include "RTVisitor.h"
+#include "image.h"
 
 
 
 using namespace std;
 using namespace antlr4;
+
+
+// These will have to be tweaked maybe?? Ask in class...
+glm::vec3 eye = glm::vec3(0.0, 0.0, -200.0);
+glm::vec3 lookAt = glm::vec3(0.0, 0.0, 0.0);
+glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
+float fovy = 90;
+
+// Gramm-Schmidt
+glm::vec3 l = glm::normalize(lookAt - eye);
+glm::vec3 v = glm::normalize(glm::cross(l, up));
+glm::vec3 u = glm::cross(u, v);
+float focalLength = 1 / tan(fovy / 2);
+
+// Maybe move this into Image??
+Ray CalculateRay(int i, int j, Image image, glm::vec3 ll, float aspectRatio) {
+
+	glm::vec3 p = ll + ((2.0f * aspectRatio * v * (float)i) / (float)image.width) + (2.0f * u * (float)i);
+	glm::vec3 d = glm::normalize(p - eye);
+
+	Ray ray = Ray(eye, d);
+
+	return ray;
+}
+
+glm::vec3 TraceRay(Ray ray, int maxDepth) {
+
+	return 255.0f * ray.direction;
+}
 
 int main(int argc, const char* argv[])
 {
@@ -41,35 +74,32 @@ int main(int argc, const char* argv[])
 
 	scene.print();
 
-	
+	Image image = Image(scene.resolutionW, scene.resolutionH);
+
+	// Needed for calculating rays
+	float aspectRatio = (float)image.width / image.height;
+	glm::vec3 ll = eye + (focalLength * l) - (aspectRatio * v) - u;
+
+#pragma omp parallel for 
+	for (int i = 0; i < scene.resolutionH; i++) {
+		for (int j = 0; j < scene.resolutionW; j++) {
+			Ray ray = CalculateRay(i, j, image, ll, aspectRatio);
+			glm::vec3 color = TraceRay(ray, scene.maxDepth);
+			image.data[i][j].setColor(color);
+			//cout << "Tracing pixel: " << i << "," << j << endl;
+		}
+		cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
+
+	}
+
+
 
 	//Encode the image
 	string imageName = "test.png";
-	vector<unsigned char> image;
 
-	for (int height = 0; height < scene.resolutionH; height++) {
-		for (int width = 0; width < scene.resolutionW; width++) {
-			image.push_back(height % 255);
-			image.push_back(width % 255);
-			image.push_back((height + width) % 255);
-			image.push_back(255);
-		}
-	}
-
-	unsigned error = lodepng::encode(imageName.c_str(), image, scene.resolutionW, scene.resolutionH);
+	unsigned error = lodepng::encode(imageName.c_str(), image.flatten(), scene.resolutionW, scene.resolutionH);
 
 	//if there's an error, display it
 	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;
 
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
