@@ -41,7 +41,7 @@ public:
 	void print();
 };
 
-class scene {
+class Scene {
 public:
 	float shininess;
 	int antialias;

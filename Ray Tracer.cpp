@@ -43,7 +43,7 @@ int main(int argc, const char* argv[])
 	sceneParser::SceneContext* tree = parser.scene();
 
 	RTVisitor visitor;
-	scene scene = visitor.visitScene(tree);
+	Scene scene = visitor.visitScene(tree);
 
 	scene.print();
 

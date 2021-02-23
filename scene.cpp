@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void scene::print()
+void Scene::print()
 {
 	cout << "Parsed Scene Description: " << endl;
 	cout << "  Shininess: " << shininess << endl;

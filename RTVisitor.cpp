@@ -2,7 +2,7 @@
 
 antlrcpp::Any RTVisitor::visitScene(sceneParser::SceneContext* ctx)
 {
-	scene tmpScene = scene();
+	Scene tmpScene = Scene();
 
 	//visitChildren(ctx);
 	for (auto& object : ctx->object()) {
