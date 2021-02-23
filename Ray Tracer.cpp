@@ -27,22 +27,8 @@
 using namespace std;
 using namespace antlr4;
 
-
-// These will have to be tweaked maybe?? Ask in class...
-glm::vec3 eye = glm::vec3(0.0, 0.0, -200.0);
-glm::vec3 lookAt = glm::vec3(0.0, 0.0, 0.0);
-glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
-float fovy = 90;
-
-// Gramm-Schmidt
-glm::vec3 l = glm::normalize(lookAt - eye);
-glm::vec3 v = glm::normalize(glm::cross(l, up));
-glm::vec3 u = glm::cross(u, v);
-float focalLength = 1 / tan(fovy / 2);
-
-
 glm::vec3 TraceRay(Ray ray, int maxDepth) {
-	cout << "Tracing Ray with direction: " << to_string(ray.direction) << endl;
+	//cout << "Tracing Ray with direction: " << to_string(ray.direction) << " with thread: " << omp_get_thread_num() <<endl;
 	glm::vec3 returned = 255.0f * ray.direction;
 
 	return returned;
@@ -50,6 +36,7 @@ glm::vec3 TraceRay(Ray ray, int maxDepth) {
 
 int main(int argc, const char* argv[])
 {
+
 	ifstream in;
 	//in.open("Scenes/" + string(argv[1]));
 	in.open("Scenes/cornell1.txt");
@@ -68,7 +55,7 @@ int main(int argc, const char* argv[])
 
 	Image image = Image(scene.resolutionW, scene.resolutionH);
 
-	//#pragma omp parallel for 
+	#pragma omp parallel for 
 	for (int i = 0; i < scene.resolutionH; i++) {
 		for (int j = 0; j < scene.resolutionW; j++) {
 			Ray ray = image.CalculateRay(i, j);
@@ -76,7 +63,7 @@ int main(int argc, const char* argv[])
 			image.data[i][j].setColor(color);
 			//cout << "\nTracing pixel: " << i << "," << j;
 		}
-		cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
+		//cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
 
 	}
 

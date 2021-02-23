@@ -43,8 +43,8 @@ std::vector<unsigned char> Image::flatten()
 }
 
 Ray Image::CalculateRay(int i, int j){
-	//glm::vec3 p = ll + ((2.0f * aspectRatio * v * (float)i) / (((float)width) + (2.0f * u * (float)j)));
-	glm::vec3 p = ll + (primaryRayHelper * (float)i) / ( (float)width + (2.0f * u * (float)j));
+	//glm::vec3 p = ll + (2.0f * aspectRatio * v * (float)i / (float)width) + (2.0f * u * (float)j / (float) height);
+	glm::vec3 p = ll + (primaryRayHelper * (float)i /  (float)width) + (2.0f * u * (float)j / (float)height);
 	glm::vec3 d = glm::normalize(p - eye);
 
 	Ray ray = Ray(eye, d);
