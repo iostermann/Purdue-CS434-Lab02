@@ -52,8 +52,26 @@ Ray Image::CalculateRay(int i, int j){
 	return ray;
 }
 
+// Populates the ray's list of intersections as well as mi intersection
+void Image::intersect(Ray* ray){
+
+}
+
+glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
+	intersect(ray);
+	Shape* hit = ray->firstIntersection;
+	// Calculate shadow rays and do color things
+
+	// Reflect and recurse if mirror
+
+	glm::vec3 color(abs(ray->direction.x), abs(ray->direction.y), abs(ray->direction.z));
+	return color * 255.f;
+}
+
 Ray::Ray(glm::vec3 o, glm::vec3 d){
 	origin = o;
 	direction = glm::normalize(d);
+	firstIntersection = NULL;
 
 }
+

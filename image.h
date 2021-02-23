@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+#include <map>
 #include <glm/glm.hpp>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#include "scene.h"
 
 class Pixel
 {
@@ -27,7 +29,12 @@ class Ray
 public:
 	glm::vec3 origin;
 	glm::vec3 direction;
+	std::map<Shape*, float> intersections; // Map might be a not great DS to use
+	Shape* firstIntersection; // Populated when intersections is
+
 	Ray(glm::vec3 o, glm::vec3 d);
+
+
 
 };
 
@@ -44,7 +51,7 @@ public:
 	glm::vec3 up;
 	const float fovy = M_PI / 2.0;
 
-	// Gramm-Schmidt
+	// Gramm-Schmidt and vectors needed for primary ray calculation
 	glm::vec3 l;
 	glm::vec3 v;
 	glm::vec3 u;
@@ -60,6 +67,10 @@ public:
 
 	std::vector<unsigned char> flatten();
 	Ray CalculateRay(int i, int j);
+	glm::vec3 TraceRay(Ray* ray, int maxDepth);
+	void intersect(Ray* ray);
+
+
 };
 
 

@@ -27,12 +27,6 @@
 using namespace std;
 using namespace antlr4;
 
-glm::vec3 TraceRay(Ray ray, int maxDepth) {
-	//cout << "Tracing Ray with direction: " << to_string(ray.direction) << " with thread: " << omp_get_thread_num() <<endl;
-	glm::vec3 returned = 255.0f * ray.direction;
-
-	return returned;
-}
 
 int main(int argc, const char* argv[])
 {
@@ -59,7 +53,7 @@ int main(int argc, const char* argv[])
 	for (int i = 0; i < scene.resolutionH; i++) {
 		for (int j = 0; j < scene.resolutionW; j++) {
 			Ray ray = image.CalculateRay(i, j);
-			glm::vec3 color = TraceRay(ray, scene.maxDepth);
+			glm::vec3 color = image.TraceRay(&ray, scene.maxDepth);
 			image.data[i][j].setColor(color);
 			//cout << "\nTracing pixel: " << i << "," << j;
 		}
