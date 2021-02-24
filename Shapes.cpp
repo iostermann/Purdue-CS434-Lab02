@@ -17,6 +17,10 @@ bool Shape::findIntersection(Ray* ray, float& param){
 	return false; // Don't intersect parsing errors
 }
 
+glm::vec3 Shape::getNormal(Ray* ray){
+	return glm::vec3(0.0);
+}
+
 void Sphere::print()
 {
 	cout << "  Sphere" << endl;
@@ -99,6 +103,12 @@ bool Quad::findIntersection(Ray* ray, float& param){
 	return NULL; 
 }
 
+glm::vec3 Quad::getNormal(Ray* ray){
+	// Return normal of 1st triangle
+	// If second triangle normal is differnt, that's on you for making a broken quad
+	return glm::normalize(glm::cross(corner3 - corner1, corner2-corner1));
+}
+
 bool Sphere::findIntersection(Ray* ray, float& param) {
 	const float EPSILON = 0.0000001f;
 	//float a;
@@ -133,6 +143,11 @@ bool Sphere::findIntersection(Ray* ray, float& param) {
 
 	return false; // Just to make the compiler happy
 
+}
+
+glm::vec3 Sphere::getNormal(Ray* ray){
+	glm::vec3 intersection = ray->origin + (ray->direction * ray->firstIntersectionParam);
+	return glm::normalize(intersection - position);
 }
 
 

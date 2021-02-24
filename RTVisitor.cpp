@@ -127,7 +127,7 @@ antlrcpp::Any RTVisitor::visitAmbient(sceneParser::AmbientContext* ctx)
 	for (auto& element : ctx->NUMBER()) {
 		vals.push_back(stoi(element->getText()));
 	}
-	glm::vec3 ambient = glm::vec3(vals[0], vals[1], vals[2]);
+	glm::vec3 ambient = glm::vec3(vals[0], vals[1], vals[2]) / 255.f;
 	antlrcpp::Any result = ambient;
 	return result;
 }
@@ -138,7 +138,7 @@ antlrcpp::Any RTVisitor::visitSpecular(sceneParser::SpecularContext* ctx)
 	for (auto& element : ctx->NUMBER()) {
 		vals.push_back(stoi(element->getText()));
 	}
-	glm::vec3 specular = glm::vec3(vals[0], vals[1], vals[2]);
+	glm::vec3 specular = glm::vec3(vals[0], vals[1], vals[2]) / 255.f;
 	antlrcpp::Any result = specular;
 	return result;
 }
@@ -149,7 +149,7 @@ antlrcpp::Any RTVisitor::visitDiffuse(sceneParser::DiffuseContext* ctx)
 	for (auto& element : ctx->NUMBER()) {
 		vals.push_back(stoi(element->getText()));
 	}
-	glm::vec3 diffuse = glm::vec3(vals[0], vals[1], vals[2]);
+	glm::vec3 diffuse = glm::vec3(vals[0], vals[1], vals[2]) / 255.f;
 	antlrcpp::Any result = diffuse;
 	return result;
 }

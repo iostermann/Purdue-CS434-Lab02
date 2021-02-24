@@ -7,6 +7,8 @@
 #include "scene.h"
 #include "Ray.h"
 
+class Shape;
+
 class Pixel
 {
 public:
@@ -56,6 +58,9 @@ public:
 	Ray CalculateRay(int i, int j);
 	glm::vec3 TraceRay(Ray* ray, int maxDepth);
 	void intersect(Ray* ray);
+	void intersect(Ray* ray, Shape* ignore);
+	vector<Light*> ShadowRays(Ray* ray);
+	glm::vec3 Phong(Ray* ray, Light* light);
 
 
 };

@@ -88,8 +88,8 @@ QUAD
 // Bottom Face
 QUAD
     POS -150 -150 150
-    POS 150 -150 150
     POS 150 -150 -150
+    POS 150 -150 150
     POS -150 -150 -150
     DIFF 25 255 25
     SPEC 255 255 255

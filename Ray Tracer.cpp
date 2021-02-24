@@ -52,7 +52,7 @@ int main(int argc, const char* argv[])
 		for (int j = 0; j < image.scene->resolutionW; j++) {
 			Ray ray = image.CalculateRay(i, j);
 			glm::vec3 color = image.TraceRay(&ray, image.scene->maxDepth);
-			image.data[i][j].setColor(color);
+			image.data[i][j].setColor(color * 255.f);
 			//cout << "\nTracing pixel: " << i << "," << j;
 		}
 		//cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
