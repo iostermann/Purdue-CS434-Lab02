@@ -466,6 +466,15 @@
     <None Include="glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.dll" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.dll" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.exp" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.ilk" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.pdb" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.exp" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.iobj" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.ipdb" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="antlr4-runtime\atn\AbstractPredicateTransition.h">
@@ -1815,5 +1824,9 @@
     <ClInclude Include="Shapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.lib" />
+    <Library Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.lib" />
   </ItemGroup>
 </Project>
