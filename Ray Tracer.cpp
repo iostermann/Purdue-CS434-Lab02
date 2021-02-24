@@ -50,7 +50,7 @@ int main(int argc, const char* argv[])
 	#pragma omp parallel for 
 	for (int i = 0; i < image.scene->resolutionH; i++) {
 		for (int j = 0; j < image.scene->resolutionW; j++) {
-			Ray ray = image.CalculateRay(i, j);
+			Ray ray = image.CalculateRay(i, j); 
 			glm::vec3 color = image.TraceRay(&ray, image.scene->maxDepth);
 			image.data[i][j].setColor(color * 255.f);
 			//cout << "\nTracing pixel: " << i << "," << j;

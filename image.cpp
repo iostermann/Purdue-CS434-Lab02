@@ -100,6 +100,7 @@ vector<Light*> Image::ShadowRays(Ray* ray){
 		// Construct new ray to do it
 		Ray tmp = Ray(position, glm::normalize((*it)->position - position));
 		float distanceToLight = glm::distance((*it)->position, position);
+		//Shape* ignoreMe = ray->firstIntersection;
 		intersect(&tmp, ray->firstIntersection);
 		//intersect(&tmp);
 		if (distanceToLight < tmp.firstIntersectionParam) {
@@ -141,14 +142,13 @@ glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 		color += Phong(ray, *it);
 
 	}
-	//color += ray->firstIntersection->ambient; // is this right?
 	if (maxDepth <= 0) {
 		color = glm::clamp(color, 0.f, 1.f);
 		return color;
 	}
 	// Reflect and recurse if mirror
 	glm::vec3 newOrigin = ray->origin + (ray->direction * ray->firstIntersectionParam);
-	glm::vec3 newDirection = glm::reflect(-ray->direction, hit->getNormal(ray));
+	glm::vec3 newDirection = glm::reflect(ray->direction, hit->getNormal(ray)); // This might be screwing things up
 	Ray* reflected = new Ray(newOrigin, newDirection);
 	if (hit->isMirror) {
 		color += TraceRay(reflected, maxDepth - 1);

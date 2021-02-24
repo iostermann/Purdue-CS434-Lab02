@@ -344,3 +344,4 @@ healthchecksdb
 
 # output images
 *.png
+/glm/out/build/x64-Debug

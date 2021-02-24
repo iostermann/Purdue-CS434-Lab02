@@ -48,6 +48,9 @@ void Quad::print()
 
 bool Quad::findIntersection(Ray* ray, float& param){
 	// Quads are two triangles 123 and 243. Intersect one or the other
+	//return false;
+
+	// Try a different quad intersection algo to maybe fix some issues?
 
 	// Use Moller-Trumbore algo
 	const float EPSILON = 0.0000001;
@@ -89,10 +92,10 @@ bool Quad::findIntersection(Ray* ray, float& param){
 	f = 1.0f / a;
 	s = ray->origin - vert0;
 	u = f * glm::dot(s, h);
-	if (u < 0.0 || u > 1.0) return false;
+	if (u < 0.0f || u > 1.0f) return false;
 	q = glm::cross(s, edge1);
 	v = f * glm::dot(ray->direction, q);
-	if (v < 0.0 || u + v > 1.0) return false;
+	if (v < 0.0f || u + v > 1.0f) return false;
 	t = f * glm::dot(edge2, q);
 	if (t > EPSILON) {// Ray intersection
 		param = t;
