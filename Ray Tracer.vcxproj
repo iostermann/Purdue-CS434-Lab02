@@ -326,6 +326,15 @@
     <None Include="glm\gtx\vector_angle.inl" />
     <None Include="glm\gtx\vector_query.inl" />
     <None Include="glm\gtx\wrap.inl" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.dll" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.exp" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.ilk" />
+    <None Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.pdb" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.dll" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.exp" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.iobj" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.ipdb" />
+    <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.pdb" />
     <None Include="scene.g4" />
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +787,10 @@
     <ClInclude Include="RTVisitor.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="Shapes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.lib" />
+    <Library Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
