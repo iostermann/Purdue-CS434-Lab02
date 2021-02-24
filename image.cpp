@@ -115,7 +115,7 @@ vector<Light*> Image::ShadowRays(Ray* ray){
 glm::vec3 Image::Phong(Ray* ray, Light* light){
 	Shape* hit = ray->firstIntersection;
 	glm::vec3 normal = hit->getNormal(ray);
-	glm::vec3 position = ray->origin + (ray->direction * ray->firstIntersectionParam);
+	glm::vec3 position = ray->origin + (ray->direction * (ray->firstIntersectionParam));
 	glm::vec3 toLight = glm::normalize(light->position - position);
 	glm::vec3 color(0.0f);
 
@@ -132,6 +132,7 @@ glm::vec3 Image::Phong(Ray* ray, Light* light){
 
 
 glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
+	const float EPSILON = 0.01f; // Kick the reflected ray out just enough so it isn't inside a collided object
 	intersect(ray);
 	Shape* hit = ray->firstIntersection;
 	// Calculate shadow rays and do color things
@@ -147,7 +148,7 @@ glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 		return color;
 	}
 	// Reflect and recurse if mirror
-	glm::vec3 newOrigin = ray->origin + (ray->direction * ray->firstIntersectionParam);
+	glm::vec3 newOrigin = ray->origin + (ray->direction * (ray->firstIntersectionParam - EPSILON));
 	glm::vec3 newDirection = glm::reflect(ray->direction, hit->getNormal(ray)); // This might be screwing things up
 	Ray* reflected = new Ray(newOrigin, newDirection);
 	if (hit->isMirror) {
