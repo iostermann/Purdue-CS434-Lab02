@@ -180,8 +180,10 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Ray Tracer.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RTVisitor.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Scenes\cornell1.txt" />
@@ -772,8 +774,10 @@
     <ClInclude Include="glm\vector_relational.hpp" />
     <ClInclude Include="image.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="RTVisitor.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="Shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

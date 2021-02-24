@@ -43,17 +43,15 @@ int main(int argc, const char* argv[])
 	sceneParser::SceneContext* tree = parser.scene();
 
 	RTVisitor visitor;
-	Scene scene = visitor.visitScene(tree);
-
-	scene.print();
-
-	Image image = Image(scene.resolutionW, scene.resolutionH);
+	//Scene scene = visitor.visitScene(tree);
+	Image image = Image((Scene*)visitor.visitScene(tree));
+	image.scene->print();
 
 	#pragma omp parallel for 
-	for (int i = 0; i < scene.resolutionH; i++) {
-		for (int j = 0; j < scene.resolutionW; j++) {
+	for (int i = 0; i < image.scene->resolutionH; i++) {
+		for (int j = 0; j < image.scene->resolutionW; j++) {
 			Ray ray = image.CalculateRay(i, j);
-			glm::vec3 color = image.TraceRay(&ray, scene.maxDepth);
+			glm::vec3 color = image.TraceRay(&ray, image.scene->maxDepth);
 			image.data[i][j].setColor(color);
 			//cout << "\nTracing pixel: " << i << "," << j;
 		}
@@ -66,7 +64,7 @@ int main(int argc, const char* argv[])
 	//Encode the image
 	string imageName = "test.png";
 
-	unsigned error = lodepng::encode(imageName.c_str(), image.flatten(), scene.resolutionW, scene.resolutionH);
+	unsigned error = lodepng::encode(imageName.c_str(), image.flatten(), image.scene->resolutionW, image.scene->resolutionH);
 
 	//if there's an error, display it
 	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;

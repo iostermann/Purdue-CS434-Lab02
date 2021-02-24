@@ -2,34 +2,34 @@
 
 antlrcpp::Any RTVisitor::visitScene(sceneParser::SceneContext* ctx)
 {
-	Scene tmpScene = Scene();
+	Scene* tmpScene = new Scene();
 
 	//visitChildren(ctx);
 	for (auto& object : ctx->object()) {
 		if (object->light()) {
 			Light* tmp = (visitObject(object)).as<Light*>();
-			tmpScene.lights.push_back(tmp);
+			tmpScene->lights.push_back(tmp);
 		}
 		else if (object->quad()) {
 			Shape* tmp = (visitObject(object)).as<Quad*>();
-			tmpScene.shapes.push_back(tmp);
+			tmpScene->shapes.push_back(tmp);
 		}
 		else if (object->sphere()) {
 			Shape* tmp = (visitObject(object)).as<Sphere*>();
-			tmpScene.shapes.push_back(tmp);
+			tmpScene->shapes.push_back(tmp);
 		}
 		
 	}
 
 	for (auto& paramctx : ctx->paramlist()->param()) {
 		if (paramctx->SHININESS()) {
-			tmpScene.shininess = stof(paramctx->NUMBER()[0]->getText());
+			tmpScene->shininess = stof(paramctx->NUMBER()[0]->getText());
 		}
 		 else if (paramctx->ANTIALIAS()) {
-			tmpScene.antialias = stoi(paramctx->NUMBER()[0]->getText());
+			tmpScene->antialias = stoi(paramctx->NUMBER()[0]->getText());
 		}
 		else if (paramctx->MAXDEPTH()) {
-			tmpScene.maxDepth = stoi(paramctx->NUMBER()[0]->getText());
+			tmpScene->maxDepth = stoi(paramctx->NUMBER()[0]->getText());
 		}
 		else if (paramctx->BACKGROUND()) {
 			vector<int> vals;
@@ -37,12 +37,12 @@ antlrcpp::Any RTVisitor::visitScene(sceneParser::SceneContext* ctx)
 				vals.push_back(stoi(element->getText()));
 			}
 			glm::vec3 color = glm::vec3(vals[0], vals[1], vals[2]);
-			tmpScene.backgroundColor = color;
+			tmpScene->backgroundColor = color;
 		}
 	}
 
-	tmpScene.resolutionW = stoi(ctx->resolution()->NUMBER()[0]->getText());
-	tmpScene.resolutionH = stoi(ctx->resolution()->NUMBER()[1]->getText());
+	tmpScene->resolutionW = stoi(ctx->resolution()->NUMBER()[0]->getText());
+	tmpScene->resolutionH = stoi(ctx->resolution()->NUMBER()[1]->getText());
 
 
 	antlrcpp::Any result = tmpScene;
@@ -69,6 +69,7 @@ antlrcpp::Any RTVisitor::visitSphere(sceneParser::SphereContext* ctx)
 	Sphere* tmp = new Sphere();
 	tmp->position = visitPosition(ctx->position());
 	tmp->radius = stoi(ctx->radius()->NUMBER()->getText());
+	tmp->radiusSquared = tmp->radius * tmp->radius;
 	tmp->ambient = visitAmbient(ctx->ambient());
 	tmp->specular = visitSpecular(ctx->specular());
 	tmp->diffuse = visitDiffuse(ctx->diffuse());

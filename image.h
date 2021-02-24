@@ -2,11 +2,10 @@
 #include <vector>
 #include <map>
 #include <glm/glm.hpp>
-
 #define _USE_MATH_DEFINES
 #include <math.h>
-
 #include "scene.h"
+#include "Ray.h"
 
 class Pixel
 {
@@ -24,45 +23,33 @@ public:
 	void setColor(glm::vec4 color) { r = color.x; g = color.y; b = color.z; a = color.z; };
 };
 
-class Ray
-{
-public:
-	glm::vec3 origin;
-	glm::vec3 direction;
-	std::map<Shape*, float> intersections; // Map might be a not great DS to use
-	Shape* firstIntersection; // Populated when intersections is
-
-	Ray(glm::vec3 o, glm::vec3 d);
-
-
-
-};
 
 class Image
 {
 public:
+	Scene* scene;
+
 	int width;
 	int height;
-	float aspectRatio;
-
 
 	glm::vec3 eye;
 	glm::vec3 lookAt;
 	glm::vec3 up;
-	const float fovy = M_PI / 2.0;
+	const float fovy = M_PI / 2.0f;
 
 	// Gramm-Schmidt and vectors needed for primary ray calculation
 	glm::vec3 l;
 	glm::vec3 v;
 	glm::vec3 u;
-	float focalLength;
 	glm::vec3 ll;
+	float focalLength;	
+	float aspectRatio;
 
 	glm::vec3 primaryRayHelper;
 
 
 	std::vector<std::vector<Pixel>> data;
-	Image(int w, int h);
+	Image(Scene* scene);
 	~Image();
 
 	std::vector<unsigned char> flatten();

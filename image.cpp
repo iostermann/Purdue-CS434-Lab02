@@ -1,14 +1,16 @@
 #include "image.h"
 
-Image::Image(int w, int h){
-	width = w;
-	height = h;
+Image::Image(Scene* s){
+	scene = s;
+	width = scene->resolutionW;
+	height = scene->resolutionH;
+
 	data = std::vector<std::vector<Pixel>>(height, std::vector<Pixel>(width, Pixel()));
 
 	// Set up vectors needed for creating primary rays
 	eye = glm::vec3(0.0, 0.0, -200.0);
 	lookAt = glm::vec3(0.0, 0.0, 0.0);
-	up = glm::vec3(0.0, 1.0, 0.0);
+	up = glm::vec3(0.0, 1.0, 0.0); // Making this 1,0,0 causes image to be correct orientation. But that's a dumb solution...
 
 	l = glm::normalize(lookAt - eye);
 	v = glm::normalize(glm::cross(l, up));
@@ -52,26 +54,35 @@ Ray Image::CalculateRay(int i, int j){
 	return ray;
 }
 
-// Populates the ray's list of intersections as well as mi intersection
+// Populates the ray's list of intersections as well as finds the first intersection
 void Image::intersect(Ray* ray){
-
+	Shape* closest = NULL;
+	float closestParam = INFINITY;
+	for (vector<Shape*>::iterator it = scene->shapes.begin(); it < scene->shapes.end(); ++it ) {
+		float param = (*it)->findIntersection(ray);
+		if (param) {
+			ray->intersections.emplace(*it, param);
+			if (param < closestParam) {
+				closest = *it;
+				closestParam = param;
+			}
+		}
+	}
+	ray->firstIntersection = closest;
 }
 
 glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 	intersect(ray);
 	Shape* hit = ray->firstIntersection;
 	// Calculate shadow rays and do color things
+	glm::vec3 color(0.0f);
+	if (!hit) {
+		return scene->backgroundColor;
+	}
+	color = glm::vec3(255.0f, 255.0f, 0.0f);
 
 	// Reflect and recurse if mirror
 
-	glm::vec3 color(abs(ray->direction.x), abs(ray->direction.y), abs(ray->direction.z));
-	return color * 255.f;
-}
-
-Ray::Ray(glm::vec3 o, glm::vec3 d){
-	origin = o;
-	direction = glm::normalize(d);
-	firstIntersection = NULL;
-
+	return color;
 }
 
