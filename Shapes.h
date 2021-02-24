@@ -12,7 +12,7 @@ public:
 	bool isMirror = false;
 
 	virtual void print();
-	virtual float findIntersection(Ray* ray);
+	virtual bool findIntersection(Ray* ray, float& param);
 };
 
 class Sphere : public Shape {
@@ -22,16 +22,17 @@ public:
 	int radiusSquared;
 
 	void print();
-	float findIntersection(Ray* ray);
+	bool findIntersection(Ray* ray, float& param);
 };
 
+// Quads are two triangles T123 and T243
 class Quad : public Shape {
 public:
 	glm::vec3 corner1;
 	glm::vec3 corner2;
 	glm::vec3 corner3;
-	glm::vec3 corner4; // Do I need this??
+	glm::vec3 corner4; 
 
 	void print();
-	float findIntersection(Ray* ray);
+	bool findIntersection(Ray* ray, float& param);
 };

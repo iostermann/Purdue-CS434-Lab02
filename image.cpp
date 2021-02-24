@@ -56,11 +56,14 @@ Ray Image::CalculateRay(int i, int j){
 
 // Populates the ray's list of intersections as well as finds the first intersection
 void Image::intersect(Ray* ray){
+	const float EPSILON = 0.0000001;
 	Shape* closest = NULL;
 	float closestParam = INFINITY;
 	for (vector<Shape*>::iterator it = scene->shapes.begin(); it < scene->shapes.end(); ++it ) {
-		float param = (*it)->findIntersection(ray);
-		if (param) {
+		float param;
+		if((*it)->findIntersection(ray, param)){
+		//float param = (*it)->findIntersection(ray);
+		//if (param) {
 			ray->intersections.emplace(*it, param);
 			if (param < closestParam) {
 				closest = *it;
@@ -79,7 +82,7 @@ glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 	if (!hit) {
 		return scene->backgroundColor;
 	}
-	color = glm::vec3(255.0f, 255.0f, 0.0f);
+	color = hit->diffuse;
 
 	// Reflect and recurse if mirror
 

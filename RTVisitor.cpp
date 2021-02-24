@@ -88,6 +88,7 @@ antlrcpp::Any RTVisitor::visitQuad(sceneParser::QuadContext* ctx)
 	tmp->corner1 = corners[0];
 	tmp->corner2 = corners[1];
 	tmp->corner3 = corners[2];
+	tmp->corner4 = corners[3];
 	   
 	tmp->ambient = visitAmbient(ctx->ambient());
 	tmp->specular = visitSpecular(ctx->specular());

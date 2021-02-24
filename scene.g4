@@ -41,6 +41,7 @@ quad:
     position
     position
     position
+    position
     diffuse
     specular
     ambient
