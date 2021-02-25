@@ -91,15 +91,13 @@ int main(int argc, const char* argv[])
 	}
 
 	
-
-
-
 	//Encode the image
 	string imageName = "test.png";
-
-	unsigned error = lodepng::encode(imageName.c_str(), flatten(final), image.scene->resolutionW, image.scene->resolutionH);
-
-	//if there's an error, display it
+	std::vector<unsigned char> png;
+	lodepng::State state;
+	//state.encoder.zlibsettings.btype = 0; // disable compression for possible speed advantage???
+	unsigned error = lodepng::encode(png, flatten(final), image.scene->resolutionW, image.scene->resolutionH, state);
+	if (!error) lodepng::save_file(png, imageName);
 	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;
 
 }

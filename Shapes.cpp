@@ -114,23 +114,7 @@ bool Quad::findIntersection(Ray* ray, float& param){
 }
 
 bool Quad::findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, glm::vec3 corner2, glm::vec3 corner3){
-	/*const float EPSILON = 0.000001f;
-	glm::vec3 p = corner2 - corner1;
-	glm::vec3 q = corner3 - corner1;
-	glm::vec3 tmp1 = glm::cross(ray->direction, q);
-	float dot1 = glm::dot(tmp1, p);
-	if ((dot1 > -EPSILON) && (dot1 < EPSILON)) return false;
-	float f = 1 / dot1;
-	glm::vec3 s = ray->origin - corner1;
-	float u = f * glm::dot(s, tmp1);
-	if ((u < 0.f) || (u > 1.f)) return false;
-	glm::vec3 tmp2 = glm::cross(s, p);
-	float v = f * glm::dot(ray->direction, tmp2);
-	if ((v < 0.f) || (u + v > 1.f)) return false;
-	param = f * glm::dot(q, tmp2);
-	return true;*/
-
-	// Okay fine lets try MT again
+	// Moller-Trumbore intersection Aalgo
 	const float EPSILON = 0.000001f;
 	glm::vec3 side1 = corner2 - corner1;
 	glm::vec3 side2 = corner3 - corner1;
