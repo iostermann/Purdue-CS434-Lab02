@@ -5,7 +5,7 @@ Image::Image(Scene* s){
 	width = scene->resolutionW;
 	height = scene->resolutionH;
 
-	data = std::vector<std::vector<Pixel>>(height, std::vector<Pixel>(width, Pixel()));
+	data = std::vector<std::vector<Pixel>>(height * scene->antialias, std::vector<Pixel>(width * scene->antialias, Pixel()));
 
 	// Set up vectors needed for creating primary rays
 	eye = glm::vec3(0.0, 0.0, -200.0);
@@ -28,25 +28,10 @@ Image::~Image(){
 
 }
 
-std::vector<unsigned char> Image::flatten()
-{
-	std::vector<unsigned char> flattened;
-	for (auto& row : data) {
-		for (auto& pixel : row) {
-			flattened.push_back(pixel.r);
-			flattened.push_back(pixel.g);
-			flattened.push_back(pixel.b);
-			flattened.push_back(pixel.a);
-
-		}
-	}
-
-	return flattened;
-}
 
 Ray Image::CalculateRay(int i, int j){
 	//glm::vec3 p = ll + (2.0f * aspectRatio * v * (float)i / (float)width) + (2.0f * u * (float)j / (float) height);
-	glm::vec3 p = ll + (primaryRayHelper * (float)i /  (float)width) + (2.0f * u * (float)j / (float)height);
+	glm::vec3 p = ll + (primaryRayHelper * (float)i /  ((float)width * scene->antialias)) + (2.0f * u * (float)j / ((float)height * scene->antialias));
 	glm::vec3 d = glm::normalize(p - eye);
 
 	Ray ray = Ray(eye, d);

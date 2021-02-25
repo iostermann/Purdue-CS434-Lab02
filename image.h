@@ -16,13 +16,14 @@ public:
 	unsigned char g;
 	unsigned char b;
 	unsigned char a;
-	Pixel(glm::vec3 color) { r = color.x; g = color.y; b = color.z; a = 255; };
+	Pixel(glm::vec3 color) { r = color.x; g = color.y; b = color.z; a = 1; };
 	Pixel(glm::vec4 color) { r = color.x; g = color.y; b = color.z; a = color.z; };
 	Pixel(unsigned char r, unsigned char g, unsigned char b, unsigned char a) { this->r = r; this->g = g; this->b = b; this->a = a; };
-	Pixel() { r = 255; g = 255; b = 255; a = 255; };
+	Pixel() { r = 255; g = 255; b = 1; a = 255; };
 
 	void setColor(glm::vec3 color) { r = color.x; g = color.y; b = color.z; a = 255; };
-	void setColor(glm::vec4 color) { r = color.x; g = color.y; b = color.z; a = color.z; };
+	void setColor(glm::vec4 color) { r = color.x; g = color.y; b = color.z; a = color.w; };
+	glm::vec4 getColor() { return glm::vec4(r, g, b, a); }
 };
 
 
@@ -54,7 +55,7 @@ public:
 	Image(Scene* scene);
 	~Image();
 
-	std::vector<unsigned char> flatten();
+	
 	Ray CalculateRay(int i, int j);
 	glm::vec3 TraceRay(Ray* ray, int maxDepth);
 	void intersect(Ray* ray);

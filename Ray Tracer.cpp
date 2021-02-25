@@ -27,6 +27,19 @@
 using namespace std;
 using namespace antlr4;
 
+std::vector<unsigned char> flatten(std::vector<std::vector<Pixel>> data) {
+	std::vector<unsigned char> flattened;
+	for (auto& row : data) {
+		for (auto& pixel : row) {
+			flattened.push_back(pixel.r);
+			flattened.push_back(pixel.g);
+			flattened.push_back(pixel.b);
+			flattened.push_back(pixel.a);
+
+		}
+	}
+	return flattened;
+}
 
 int main(int argc, const char* argv[])
 {
@@ -47,9 +60,10 @@ int main(int argc, const char* argv[])
 	Image image = Image((Scene*)visitor.visitScene(tree));
 	image.scene->print();
 
+
 	#pragma omp parallel for 
-	for (int i = 0; i < image.scene->resolutionH; i++) {
-		for (int j = 0; j < image.scene->resolutionW; j++) {
+	for (int i = 0; i < image.scene->resolutionH * image.scene->antialias; i++) {
+		for (int j = 0; j < image.scene->resolutionW * image.scene->antialias; j++) {
 			Ray ray = image.CalculateRay(i, j); 
 			glm::vec3 color = image.TraceRay(&ray, image.scene->maxDepth);
 			image.data[i][j].setColor(color * 255.f);
@@ -59,12 +73,31 @@ int main(int argc, const char* argv[])
 
 	}
 
+	// Average the supersampled values
+	std::vector<std::vector<Pixel>> final(image.height, std::vector<Pixel>(image.width, Pixel()));
+	#pragma omp parallel for
+	for (int i = 0; i < image.scene->resolutionH * image.scene->antialias; i+= image.scene->antialias) {
+		for (int j = 0; j < image.scene->resolutionW * image.scene->antialias; j+= image.scene->antialias) {
+			glm::vec4 color(0.0f);
+			for (int x = 0; x < image.scene->antialias; x++) {
+				for (int y = 0; y < image.scene->antialias; y++) {
+					color += image.data[i + x][j + y].getColor();
+				}
+			}
+			color /= (image.scene->antialias * image.scene->antialias);
+			final[i / image.scene->antialias][j / image.scene->antialias].setColor(color);
+		}
+
+	}
+
+	
+
 
 
 	//Encode the image
 	string imageName = "test.png";
 
-	unsigned error = lodepng::encode(imageName.c_str(), image.flatten(), image.scene->resolutionW, image.scene->resolutionH);
+	unsigned error = lodepng::encode(imageName.c_str(), flatten(final), image.scene->resolutionW, image.scene->resolutionH);
 
 	//if there's an error, display it
 	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;

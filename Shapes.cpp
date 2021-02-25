@@ -48,7 +48,14 @@ void Quad::print()
 
 bool Quad::findIntersection(Ray* ray, float& param){
 	// Quads are two triangles 123 and 243. Intersect one or the other
-	//return false;
+	if (findIntersectionTriangle(ray, param, corner1, corner2, corner3)) {
+		return true;
+	}
+	else if (findIntersectionTriangle(ray, param, corner2, corner4, corner3)) {
+		return true;
+	}
+
+	return false;
 
 	// Try a different quad intersection algo to maybe fix some issues?
 
@@ -105,6 +112,45 @@ bool Quad::findIntersection(Ray* ray, float& param){
 
 	return NULL; 
 }
+
+bool Quad::findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, glm::vec3 corner2, glm::vec3 corner3){
+	/*const float EPSILON = 0.000001f;
+	glm::vec3 p = corner2 - corner1;
+	glm::vec3 q = corner3 - corner1;
+	glm::vec3 tmp1 = glm::cross(ray->direction, q);
+	float dot1 = glm::dot(tmp1, p);
+	if ((dot1 > -EPSILON) && (dot1 < EPSILON)) return false;
+	float f = 1 / dot1;
+	glm::vec3 s = ray->origin - corner1;
+	float u = f * glm::dot(s, tmp1);
+	if ((u < 0.f) || (u > 1.f)) return false;
+	glm::vec3 tmp2 = glm::cross(s, p);
+	float v = f * glm::dot(ray->direction, tmp2);
+	if ((v < 0.f) || (u + v > 1.f)) return false;
+	param = f * glm::dot(q, tmp2);
+	return true;*/
+
+	// Okay fine lets try MT again
+	const float EPSILON = 0.000001f;
+	glm::vec3 side1 = corner2 - corner1;
+	glm::vec3 side2 = corner3 - corner1;
+	glm::vec3 pvec = glm::cross(ray->direction, side2);
+	float det = glm::dot(side1, pvec);
+	if (abs(det) < EPSILON) return false;
+	float invDet = 1 / det;
+	glm::vec3 tvec = ray->origin - corner1;
+	float u = glm::dot(tvec, pvec) * invDet;
+	if (u < 0 || u > 1) return false;
+	glm::vec3 qvec = glm::cross(tvec, side1);
+	float v = glm::dot(ray->direction, qvec) * invDet;
+	if (v < 0 || u + v > 1) return false;
+	param = glm::dot(side2, qvec) * invDet;
+	return true;
+
+
+}
+
+
 
 glm::vec3 Quad::getNormal(Ray* ray){
 	// Return normal of 1st triangle

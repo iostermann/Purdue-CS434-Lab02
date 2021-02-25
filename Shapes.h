@@ -37,6 +37,7 @@ public:
 
 	void print();
 	bool findIntersection(Ray* ray, float& param);
+	bool findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, glm::vec3 corner2, glm::vec3 corner3);
 	glm::vec3 getNormal(Ray* ray);
 
 };
