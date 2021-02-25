@@ -88,7 +88,8 @@ bool Sphere::findIntersection(Ray* ray, float& param) {
 	const float EPSILON = 0.0000001f;
 	glm::vec3 originLessCenter = ray->origin - position;
 	float halfB = glm::dot(ray->direction, originLessCenter);
-	float discriminant = pow(halfB, 2) - (pow(glm::length(originLessCenter), 2) - radiusSquared);
+	float originLessCenterLength = glm::length(originLessCenter);
+	float discriminant = (halfB * halfB) - ((originLessCenterLength * originLessCenterLength) - radiusSquared);
 
 	if (discriminant < -EPSILON) return false; // No intersections
 	else if (discriminant <= EPSILON) { // One Intersection
