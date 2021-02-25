@@ -14,14 +14,10 @@
 #include "antlr4-runtime/sceneLexer.h"
 #include "antlr4-runtime/sceneParser.h"
 
-// Library for encoding image as a png in the end
-#include "lodepng.h"
-
+#include "lodepng.h" // Library for encoding image as a png in the end
 #include "omp.h"
-
 #include "RTVisitor.h"
 #include "image.h"
-
 
 
 using namespace std;
@@ -41,8 +37,7 @@ std::vector<unsigned char> flatten(std::vector<std::vector<Pixel>> data) {
 	return flattened;
 }
 
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]){
 	string imageName = "RToutput.png";
 
 	ifstream in;

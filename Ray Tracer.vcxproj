@@ -179,13 +179,13 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <ClCompile Include="antlr4-runtime\sceneParser.cpp" />
     <ClCompile Include="antlr4-runtime\sceneVisitor.cpp" />
     <ClCompile Include="glm\detail\glm.cpp" />
-    <ClCompile Include="image.cpp" />
-    <ClCompile Include="lodepng.cpp" />
-    <ClCompile Include="Ray Tracer.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="RTVisitor.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="Shapes.cpp" />
+    <ClCompile Include="src\image.cpp" />
+    <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\Ray Tracer.cpp" />
+    <ClCompile Include="src\Ray.cpp" />
+    <ClCompile Include="src\RTVisitor.cpp" />
+    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Scenes\cornell1.txt" />
@@ -337,7 +337,7 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.iobj" />
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.ipdb" />
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.pdb" />
-    <None Include="scene.g4" />
+    <None Include="src\scene.g4" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="antlr4-runtime\antlr4-common.h" />
@@ -783,12 +783,12 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <ClInclude Include="glm\vec3.hpp" />
     <ClInclude Include="glm\vec4.hpp" />
     <ClInclude Include="glm\vector_relational.hpp" />
-    <ClInclude Include="image.h" />
-    <ClInclude Include="lodepng.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="RTVisitor.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="Shapes.h" />
+    <ClInclude Include="src\image.h" />
+    <ClInclude Include="src\lodepng.h" />
+    <ClInclude Include="src\Ray.h" />
+    <ClInclude Include="src\RTVisitor.h" />
+    <ClInclude Include="src\scene.h" />
+    <ClInclude Include="src\Shapes.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\vs-2019\x64\Debug DLL\antlr4-runtime.lib" />

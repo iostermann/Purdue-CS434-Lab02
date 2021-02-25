@@ -15,7 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ray Tracer.cpp">
+    <ClCompile Include="glm\detail\glm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RTVisitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ray Tracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="antlr4-runtime\sceneBaseVisitor.cpp">
@@ -30,25 +48,7 @@
     <ClCompile Include="antlr4-runtime\sceneVisitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glm\detail\glm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RTVisitor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lodepng.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes.cpp">
+    <ClCompile Include="src\lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,7 +57,6 @@
     <Text Include="Scenes\cornell2.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="scene.g4" />
     <None Include="glm\detail\func_common.inl">
       <Filter>Header Files</Filter>
     </None>
@@ -475,6 +474,7 @@
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.iobj" />
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.ipdb" />
     <None Include="lib\vs-2019\x64\Release DLL\antlr4-runtime.pdb" />
+    <None Include="src\scene.g4" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="antlr4-runtime\atn\AbstractPredicateTransition.h">
@@ -921,18 +921,6 @@
     <ClInclude Include="antlr4-runtime\RuntimeMetaData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="antlr4-runtime\sceneBaseVisitor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="antlr4-runtime\sceneLexer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="antlr4-runtime\sceneParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="antlr4-runtime\sceneVisitor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="antlr4-runtime\Token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -958,9 +946,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="antlr4-runtime\WritableToken.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="glm\detail\_features.hpp">
@@ -1809,19 +1794,34 @@
     <ClInclude Include="glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RTVisitor.h">
+    <ClInclude Include="antlr4-runtime\sceneVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lodepng.h">
+    <ClInclude Include="antlr4-runtime\sceneBaseVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="image.h">
+    <ClInclude Include="antlr4-runtime\sceneLexer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
+    <ClInclude Include="antlr4-runtime\sceneParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes.h">
+    <ClInclude Include="src\image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RTVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lodepng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
