@@ -135,7 +135,8 @@
       <AdditionalDependencies>$(ProjectDir)lib\vs-2019\x64\Debug DLL\antlr4-runtime.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Debug DLL\antlr4-runtime.dll" "$(outdir)" /y</Command>
+      <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Debug DLL\antlr4-runtime.dll" "$(outdir)" /y
+xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -164,7 +165,8 @@
       <AdditionalDependencies>$(ProjectDir)lib\vs-2019\x64\Release DLL\antlr4-runtime.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Release DLL\antlr4-runtime.dll" "$(outdir)" /y</Command>
+      <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Release DLL\antlr4-runtime.dll" "$(outdir)" /y
+xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>

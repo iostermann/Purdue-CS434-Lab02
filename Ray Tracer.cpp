@@ -45,8 +45,8 @@ int main(int argc, const char* argv[])
 {
 
 	ifstream in;
-	//in.open("Scenes/" + string(argv[1]));
-	in.open("Scenes/cornell1.txt");
+	//in.open(string(argv[1]));
+	in.open("Scenes/cornell2.txt");
 
 	ANTLRInputStream input(in);
 	sceneLexer lexer(&input);
