@@ -1,6 +1,6 @@
 // Cornell Box for RayTracer
 SHININESS 20.0          // Shininess coefficient
-ANTIALIAS 5
+ANTIALIAS 3
 BACKGROUND 0 0 0        // Background color
 MAXDEPTH 17              // Raytracing depth
 LIGHT

@@ -43,11 +43,21 @@ std::vector<unsigned char> flatten(std::vector<std::vector<Pixel>> data) {
 
 int main(int argc, const char* argv[])
 {
+	string imageName = "RToutput.png";
 
 	ifstream in;
-	//in.open(string(argv[1]));
-	in.open("Scenes/cornell2.txt");
+	if (argc == 1) { // Default to cornell2 and RToutput.png
+		in.open("Scenes/cornell2.txt");
+	}
+	else if (argc == 2) { // Input scene specified
+		in.open(string(argv[1]));
+	}
+	else if (argc >= 3) { // Input scene and output filename specified
+		in.open(string(argv[1]));
+		imageName = string(argv[2]);
+	}
 
+	// ANTLR boilerplate
 	ANTLRInputStream input(in);
 	sceneLexer lexer(&input);
 	CommonTokenStream tokens(&lexer);
@@ -56,21 +66,19 @@ int main(int argc, const char* argv[])
 	sceneParser::SceneContext* tree = parser.scene();
 
 	RTVisitor visitor;
-	//Scene scene = visitor.visitScene(tree);
 	Image image = Image((Scene*)visitor.visitScene(tree));
 	image.scene->print();
 
 
+	// Trace through all the pixels are supersampled resolution
 	#pragma omp parallel for 
 	for (int i = 0; i < image.scene->resolutionH * image.scene->antialias; i++) {
 		for (int j = 0; j < image.scene->resolutionW * image.scene->antialias; j++) {
 			Ray ray = image.CalculateRay(i, j); 
 			glm::vec3 color = image.TraceRay(&ray, image.scene->maxDepth);
 			image.data[i][j].setColor(color * 255.f);
-			//cout << "\nTracing pixel: " << i << "," << j;
 		}
 		//cout << "Tracing row: " << i << " with thread " << omp_get_thread_num() << endl;
-
 	}
 
 	// Average the supersampled values
@@ -87,17 +95,14 @@ int main(int argc, const char* argv[])
 			color /= (image.scene->antialias * image.scene->antialias);
 			final[i / image.scene->antialias][j / image.scene->antialias].setColor(color);
 		}
-
 	}
 
 	
 	//Encode the image
-	string imageName = "test.png";
 	std::vector<unsigned char> png;
 	lodepng::State state;
 	//state.encoder.zlibsettings.btype = 0; // disable compression for possible speed advantage???
 	unsigned error = lodepng::encode(png, flatten(final), image.scene->resolutionW, image.scene->resolutionH, state);
 	if (!error) lodepng::save_file(png, imageName);
 	if (error) cout << "encoder error " << error << ": " << lodepng_error_text(error) << endl;
-
 }

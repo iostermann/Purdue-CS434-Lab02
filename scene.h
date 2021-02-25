@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "Shapes.h"
+#include <list>
 
 
 using namespace std;
@@ -26,7 +27,7 @@ public:
 	int resolutionH;
 	int resolutionW;
 
-	vector<Light*> lights;
+	list<Light*> lights;
 	vector<Shape*> shapes;
 
 	void print();

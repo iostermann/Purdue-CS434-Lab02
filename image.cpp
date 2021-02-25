@@ -24,18 +24,11 @@ Image::Image(Scene* s){
 	primaryRayHelper = 2.0f * aspectRatio * v;
 }
 
-Image::~Image(){
-
-}
-
 
 Ray Image::CalculateRay(int i, int j){
-	//glm::vec3 p = ll + (2.0f * aspectRatio * v * (float)i / (float)width) + (2.0f * u * (float)j / (float) height);
 	glm::vec3 p = ll + (primaryRayHelper * (float)i /  ((float)width * scene->antialias)) + (2.0f * u * (float)j / ((float)height * scene->antialias));
 	glm::vec3 d = glm::normalize(p - eye);
-
 	Ray ray = Ray(eye, d);
-
 	return ray;
 }
 
@@ -77,24 +70,19 @@ void Image::intersect(Ray* ray, Shape* ignore){
 	ray->firstIntersection = closest;
 }
 
-vector<Light*> Image::ShadowRays(Ray* ray){
-	vector<Light*> visibleLights;
+list<Light*> Image::ShadowRays(Ray* ray){
+	list<Light*> visibleLights;
 	glm::vec3 position = ray->origin + (ray->direction * ray->firstIntersectionParam);
-	for (vector<Light*>::iterator it = scene->lights.begin(); it < scene->lights.end(); ++it) {
+	for (list<Light*>::iterator it = scene->lights.begin(); it != scene->lights.end(); ++it) {
 		// Check each light if it's visible
-		// Construct new ray to do it
 		Ray tmp = Ray(position, glm::normalize((*it)->position - position));
 		float distanceToLight = glm::distance((*it)->position, position);
-		//Shape* ignoreMe = ray->firstIntersection;
 		intersect(&tmp, ray->firstIntersection);
-		//intersect(&tmp);
 		if (distanceToLight < tmp.firstIntersectionParam) {
 			visibleLights.push_back(*it);
 		}
 	}
-
 	return visibleLights;
-
 }
 
 glm::vec3 Image::Phong(Ray* ray, Light* light){
@@ -109,8 +97,7 @@ glm::vec3 Image::Phong(Ray* ray, Light* light){
 
 	// Specular
 	color += pow(glm::dot(-ray->direction, glm::reflect(toLight, normal)), scene->shininess) * light->specular * hit->specular;
-	
-	
+
 	return color;
 }
 
@@ -118,29 +105,30 @@ glm::vec3 Image::Phong(Ray* ray, Light* light){
 
 glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 	const float EPSILON = 0.01f; // Kick the reflected ray out just enough so it isn't inside a collided object
+
 	intersect(ray);
 	Shape* hit = ray->firstIntersection;
-	// Calculate shadow rays and do color things
-	glm::vec3 color(0.0f);
 	if (!hit) return scene->backgroundColor;
-	vector<Light*> contributedLights = ShadowRays(ray);
-	for (vector<Light*>::iterator it = contributedLights.begin(); it < contributedLights.end(); ++it) {
-		color += Phong(ray, *it);
 
+	// Accumulate Color
+	glm::vec3 color(0.0f);
+	list<Light*> contributedLights = ShadowRays(ray);
+	for (list<Light*>::iterator it = contributedLights.begin(); it != contributedLights.end(); ++it) {
+		color += Phong(ray, *it);
 	}
 	if (maxDepth <= 0) {
 		color = glm::clamp(color, 0.f, 1.f);
 		return color;
 	}
+
 	// Reflect and recurse if mirror
-	glm::vec3 newOrigin = ray->origin + (ray->direction * (ray->firstIntersectionParam - EPSILON));
-	glm::vec3 newDirection = glm::reflect(ray->direction, hit->getNormal(ray)); // This might be screwing things up
-	Ray* reflected = new Ray(newOrigin, newDirection);
 	if (hit->isMirror) {
+		glm::vec3 newOrigin = ray->origin + (ray->direction * (ray->firstIntersectionParam - EPSILON));
+		glm::vec3 newDirection = glm::reflect(ray->direction, hit->getNormal(ray));
+		Ray* reflected = new Ray(newOrigin, newDirection);
 		color += TraceRay(reflected, maxDepth - 1);
 	}
 	color = glm::clamp(color, 0.f, 1.f);
-
 	return color;
 }
 

@@ -54,71 +54,16 @@ bool Quad::findIntersection(Ray* ray, float& param){
 	else if (findIntersectionTriangle(ray, param, corner2, corner4, corner3)) {
 		return true;
 	}
-
 	return false;
-
-	// Try a different quad intersection algo to maybe fix some issues?
-
-	// Use Moller-Trumbore algo
-	const float EPSILON = 0.0000001;
-	glm::vec3 vert0 = corner1;
-	glm::vec3 vert1 = corner2;
-	glm::vec3 vert2 = corner3;
-	glm::vec3 edge1, edge2, h, s, q;
-	float a, f, u, v;
-	edge1 = vert1 - vert0;
-	edge2 = vert2 - vert0;
-	h = glm::cross(ray->direction, edge2);
-	a = glm::dot(edge1, h);
-	//if (a > -EPSILON && a < EPSILON) return NULL; // BUT DON'T YET
-	f = 1.0f / a;
-	s = ray->origin - vert0;
-	u = f * glm::dot(s, h);
-	//if (u < 0.0 || u > 1.0) return NULL; // BUT DON'T YET
-	q = glm::cross(s, edge1);
-	v = f * glm::dot(ray->direction, q);
-	//if (v < 0.0 || u + v > 1.0) return NULL; // BUT DON'T YET
-	float t = f * glm::dot(edge2, q);
-	if (t > EPSILON) {// Ray intersection
-		param = t;
-		return true;
-	}
-
-	// Do again but with second triangle??
-
-	vert0 = corner2;
-	vert1 = corner4;
-	vert2 = corner3;
-	edge1, edge2, h, s, q;
-	//float a, f, u, v;
-	edge1 = vert1 - vert0;
-	edge2 = vert2 - vert0;
-	h = glm::cross(ray->direction, edge2);
-	a = glm::dot(edge1, h);
-	if (a > -EPSILON && a < EPSILON) return false;
-	f = 1.0f / a;
-	s = ray->origin - vert0;
-	u = f * glm::dot(s, h);
-	if (u < 0.0f || u > 1.0f) return false;
-	q = glm::cross(s, edge1);
-	v = f * glm::dot(ray->direction, q);
-	if (v < 0.0f || u + v > 1.0f) return false;
-	t = f * glm::dot(edge2, q);
-	if (t > EPSILON) {// Ray intersection
-		param = t;
-		return true;
-	}
-
-
-	return NULL; 
 }
 
 bool Quad::findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, glm::vec3 corner2, glm::vec3 corner3){
 	// Moller-Trumbore intersection Aalgo
 	const float EPSILON = 0.000001f;
+	glm::vec3 direction = ray->direction;
 	glm::vec3 side1 = corner2 - corner1;
 	glm::vec3 side2 = corner3 - corner1;
-	glm::vec3 pvec = glm::cross(ray->direction, side2);
+	glm::vec3 pvec = glm::cross(direction, side2);
 	float det = glm::dot(side1, pvec);
 	if (abs(det) < EPSILON) return false;
 	float invDet = 1 / det;
@@ -126,14 +71,11 @@ bool Quad::findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, g
 	float u = glm::dot(tvec, pvec) * invDet;
 	if (u < 0 || u > 1) return false;
 	glm::vec3 qvec = glm::cross(tvec, side1);
-	float v = glm::dot(ray->direction, qvec) * invDet;
+	float v = glm::dot(direction, qvec) * invDet;
 	if (v < 0 || u + v > 1) return false;
 	param = glm::dot(side2, qvec) * invDet;
 	return true;
-
-
 }
-
 
 
 glm::vec3 Quad::getNormal(Ray* ray){
@@ -144,8 +86,6 @@ glm::vec3 Quad::getNormal(Ray* ray){
 
 bool Sphere::findIntersection(Ray* ray, float& param) {
 	const float EPSILON = 0.0000001f;
-	//float a;
-	//float c;
 	glm::vec3 originLessCenter = ray->origin - position;
 	float halfB = glm::dot(ray->direction, originLessCenter);
 	float discriminant = pow(halfB, 2) - (pow(glm::length(originLessCenter), 2) - radiusSquared);
