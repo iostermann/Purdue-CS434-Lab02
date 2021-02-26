@@ -192,6 +192,7 @@ xcopy "$(ProjectDir)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <Text Include="Scenes\cornell1.txt" />
     <Text Include="Scenes\cornell2.txt" />
     <Text Include="Scenes\movieBase.txt" />
+    <Text Include="src\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl" />

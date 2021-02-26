@@ -19,18 +19,14 @@ int main(int argc, const char* argv[]){
 	string inSceneFilename = "Scenes/movieBase.txt";
 	string outFrameFilename = "Frames/MovieFrame";
 	string outMovieFilename = "RTMovie";
-	int numframes = 600;
+	int numframes = 60;
 	if (argc == 1) { // Default to cornell2 and RToutput.png
 		cout << usage << endl;
 	}
-	if (argc == 2) {
+	if (argc >= 2) {
 		numframes = atoi(argv[1]);
 	}
-	else if (argc == 4) {
-		inSceneFilename = argv[1];
-		outFrameFilename = argv[2];
-		outMovieFilename = argv[3];
-	}
+
 
 	ifstream in;
 	in.open(inSceneFilename);
