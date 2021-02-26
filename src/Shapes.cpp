@@ -1,6 +1,7 @@
 #include "Shapes.h"
 #include <iostream>
 #include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 
 using namespace std;
@@ -19,6 +20,11 @@ bool Shape::findIntersection(Ray* ray, float& param){
 
 glm::vec3 Shape::getNormal(Ray* ray){
 	return glm::vec3(0.0);
+}
+
+void Shape::rotate(float angle)
+{
+	return;
 }
 
 void Sphere::print()
@@ -84,6 +90,10 @@ glm::vec3 Quad::getNormal(Ray* ray){
 	return glm::normalize(glm::cross(corner3 - corner1, corner2-corner1));
 }
 
+void Quad::rotate(float angle){
+	return;
+}
+
 bool Sphere::findIntersection(Ray* ray, float& param) {
 	const float EPSILON = 0.0000001f;
 	glm::vec3 originLessCenter = ray->origin - position;
@@ -122,6 +132,10 @@ bool Sphere::findIntersection(Ray* ray, float& param) {
 glm::vec3 Sphere::getNormal(Ray* ray){
 	glm::vec3 intersection = ray->origin + (ray->direction * ray->firstIntersectionParam);
 	return glm::normalize(intersection - position);
+}
+
+void Sphere::rotate(float angle){
+	position = glm::rotate(position, angle, glm::vec3(0.0f, 1.0f, 1.0f));
 }
 
 

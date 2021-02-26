@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ray Tracer", "Ray Tracer.vcxproj", "{D3F5E501-ED2E-4687-9A2B-386954442BE7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Movie Maker", "Movie Maker\Movie Maker.vcxproj", "{0C322606-D058-425F-B54F-D890F93BEE16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D3F5E501-ED2E-4687-9A2B-386954442BE7} = {D3F5E501-ED2E-4687-9A2B-386954442BE7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +26,14 @@ Global
 		{D3F5E501-ED2E-4687-9A2B-386954442BE7}.Release|x64.Build.0 = Release|x64
 		{D3F5E501-ED2E-4687-9A2B-386954442BE7}.Release|x86.ActiveCfg = Release|Win32
 		{D3F5E501-ED2E-4687-9A2B-386954442BE7}.Release|x86.Build.0 = Release|Win32
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Debug|x64.ActiveCfg = Debug|x64
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Debug|x64.Build.0 = Debug|x64
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Debug|x86.ActiveCfg = Debug|Win32
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Debug|x86.Build.0 = Debug|Win32
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Release|x64.ActiveCfg = Release|x64
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Release|x64.Build.0 = Release|x64
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Release|x86.ActiveCfg = Release|Win32
+		{0C322606-D058-425F-B54F-D890F93BEE16}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

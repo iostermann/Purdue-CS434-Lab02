@@ -51,10 +51,14 @@
     <ClCompile Include="src\lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Scenes\cornell1.txt" />
     <Text Include="Scenes\cornell2.txt" />
+    <Text Include="Scenes\movieBase.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl">
@@ -1822,6 +1826,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\lodepng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ray Tracer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

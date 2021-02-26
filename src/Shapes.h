@@ -14,6 +14,7 @@ public:
 	virtual void print();
 	virtual bool findIntersection(Ray* ray, float& param);
 	virtual glm::vec3 getNormal(Ray* ray);
+	virtual void rotate(float angle);
 };
 
 class Sphere : public Shape {
@@ -25,6 +26,7 @@ public:
 	void print();
 	bool findIntersection(Ray* ray, float& param);
 	glm::vec3 getNormal(Ray* ray);
+	void rotate(float angle);
 };
 
 // Quads are two triangles T123 and T243
@@ -39,5 +41,6 @@ public:
 	bool findIntersection(Ray* ray, float& param);
 	bool findIntersectionTriangle(Ray* ray, float& param, glm::vec3 corner1, glm::vec3 corner2, glm::vec3 corner3);
 	glm::vec3 getNormal(Ray* ray);
+	void rotate(float angle);
 
 };

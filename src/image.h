@@ -51,7 +51,7 @@ public:
 	glm::vec3 primaryRayHelper; // Precomputed for speeeed
 
 	std::vector<std::vector<Pixel>> data;
-	Image(Scene* scene);
+	Image(Scene* scene, glm::vec3 eye, glm::vec3 lookAt, glm::vec3 up);
 
 	Ray CalculateRay(int i, int j);
 	glm::vec3 TraceRay(Ray* ray, int maxDepth);

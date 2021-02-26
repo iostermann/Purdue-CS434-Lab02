@@ -136,7 +136,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Debug DLL\antlr4-runtime.dll" "$(outdir)" /y
-xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
+xcopy "$(ProjectDir)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -166,7 +166,7 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)lib\vs-2019\x64\Release DLL\antlr4-runtime.dll" "$(outdir)" /y
-xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
+xcopy "$(ProjectDir)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -181,6 +181,7 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <ClCompile Include="glm\detail\glm.cpp" />
     <ClCompile Include="src\image.cpp" />
     <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Ray Tracer.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RTVisitor.cpp" />
@@ -190,6 +191,7 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
   <ItemGroup>
     <Text Include="Scenes\cornell1.txt" />
     <Text Include="Scenes\cornell2.txt" />
+    <Text Include="Scenes\movieBase.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl" />
@@ -783,6 +785,7 @@ xcopy "$(ProjectDit)Scenes" "$(outdir)Scenes" /E /H /I /y</Command>
     <ClInclude Include="glm\vec3.hpp" />
     <ClInclude Include="glm\vec4.hpp" />
     <ClInclude Include="glm\vector_relational.hpp" />
+    <ClInclude Include="src\Ray Tracer.h" />
     <ClInclude Include="src\image.h" />
     <ClInclude Include="src\lodepng.h" />
     <ClInclude Include="src\Ray.h" />

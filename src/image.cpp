@@ -1,16 +1,16 @@
 #include "image.h"
 
-Image::Image(Scene* s){
-	scene = s;
-	width = scene->resolutionW;
-	height = scene->resolutionH;
+Image::Image(Scene* scene, glm::vec3 eye, glm::vec3 lookAt, glm::vec3 up) {
+	this-> scene = scene;
+	this->width = scene->resolutionW;
+	this->height = scene->resolutionH;
+	this->eye = eye;
+	this->lookAt = lookAt;
+	this->up = up;
 
 	data = std::vector<std::vector<Pixel>>(height * scene->antialias, std::vector<Pixel>(width * scene->antialias, Pixel()));
 
-	// Set up vectors needed for creating primary rays
-	eye = glm::vec3(0.0, 0.0, -200.0);
-	lookAt = glm::vec3(0.0, 0.0, 0.0);
-	up = glm::vec3(1.0, 0.0, 0.0); // Making this 1,0,0 causes image to be correct orientation. But that's a dumb solution...
+	
 
 	l = glm::normalize(lookAt - eye);
 	v = glm::normalize(glm::cross(l, up));
@@ -23,6 +23,7 @@ Image::Image(Scene* s){
 
 	primaryRayHelper = 2.0f * aspectRatio * v;
 }
+
 
 
 Ray Image::CalculateRay(int i, int j){
@@ -127,6 +128,7 @@ glm::vec3 Image::TraceRay(Ray* ray, int maxDepth){
 		glm::vec3 newDirection = glm::reflect(ray->direction, hit->getNormal(ray));
 		Ray* reflected = new Ray(newOrigin, newDirection);
 		color += TraceRay(reflected, maxDepth - 1);
+		delete reflected;
 	}
 	color = glm::clamp(color, 0.f, 1.f);
 	return color;
