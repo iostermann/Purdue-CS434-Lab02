@@ -14,7 +14,8 @@ The source is in a directory called ../Ray Tracer/
 The solution is split into two projects. The first is Ray Tracer which generates an exe
 	Ray Tracer by default takes in the (altered) cornell2.txt scene description provided and optionally takes
 	command line arguments of either the scene description filepath, or the scene description filepath followed by the output filename.
-	Should you desire and have a working antlr4 environment, the command to generate the parser is in the .g4 file
+	Should you desire and have a working antlr4 environment, the command to generate the parser is in the .g4 file.
+	Inside x64/Release you should find the application after building
 	
 The second is Movie Maker which is also an exe
 	It traces each frame independently and renders a movie at 60fps from the frames with very low compression for visual fidelity.
