@@ -34,7 +34,6 @@ int main(int argc, const char* argv[]){
 	cout << "Parsing Scene File" << endl;
 	Scene* scene = parseFile(in);
 
-
 	for (int i = 0; i < numframes; i++) {		
 		string numberStr = to_string(i);
 		string tmpFileName = outFrameFilename + numberStr + ".png";
