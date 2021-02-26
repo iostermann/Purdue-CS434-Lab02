@@ -1,6 +1,3 @@
-// Movie Maker.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include "Ray Tracer.h"
 #include <glm/gtx/transform.hpp>
@@ -10,7 +7,7 @@ const string usage = \
 "Welcome to my Ray Traced movie maker, please use the following input format:\n"
 "\t \'.\\Movie Maker.exe numFrames \'\n"
 "Using default scene Scenes\\movieBase.txt"
-"Warning: default values will render 600 frames";
+"Warning: default values will render 60 frames";
 
 using namespace std;
 using namespace antlr4;
