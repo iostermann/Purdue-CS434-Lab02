@@ -25,7 +25,7 @@ The second is Movie Maker which is also an exe
 There is also a directory called ../Release/
 I have provided both a directory for the lab2 project as well as as standalone directory with only the exe's and dependencies
 so that you can just run them. In the standalone presentation dir you should just have to click the exe and view the 
-output video or image.
+output video or image. This is just the output of the build process with all the unneeded files stripped out
 
 I also prerendered a 1 minute video overnight and uploaded it here so that you don't have to wait for it to render forever.
 https://youtu.be/HiIJMCS-iO4
