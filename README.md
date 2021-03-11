@@ -1,3 +1,7 @@
+# Ray Tracer for CS434 AAdvanced Graphics Spring 2021
+Here is a ray tracer that I created from scratch for a school project. 
+What follows is the readme from my submission:
+#
 I have implemented all the required pieces of Lab 2 as well as the extra credit movie generator.
 
 I am fairly certain that all dependencies are either statically linked or included in this distribution.
